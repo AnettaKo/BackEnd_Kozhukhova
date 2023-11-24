@@ -1,7 +1,5 @@
-# from my_functions.files import write_file
 # from my_functions.reports import *
 from my_functions.classes import Item
-from my_functions.client import Client
 
 def choose_action(menu):
     print("Choose action!")
@@ -20,7 +18,8 @@ def main_menu():
         if action == '1':
             work_with_articles()
         elif action == '2':
-            work_with_reports()
+            print("to be done :)")
+            # work_with_reports()
         elif action == '0':
             exit_system()
         else:
@@ -30,16 +29,11 @@ def work_with_articles():
     while True:
         action = choose_action('articles')
         if action == '1': #Add new article
-            # new_article = Item.add_neu_item()
             Item.add_neu_item()
-            # if new_article != None:
-            #     Client.addArticle(new_article)
-            # my_wardrobe.add_new_item()
         elif action == '2': #Change article
             Item.change_item()
-        #     my_wardrobe.change_item()
-        # elif action == '3':
-        #     my_wardrobe.delete_item()
+        elif action == '3': #Delete article
+            Item.delete_item()
         elif action == '9':
             main_menu()
         elif action == '0':
@@ -47,27 +41,13 @@ def work_with_articles():
         else:
             print("Incorrect answer")
 
-# def main_menu(my_wardrobe):
+# def work_with_reports(my_wardrobe):
 #     while True:
-#         action = choose_action('main menu')
+#         action = choose_action('reports')
 #         if action == '1':
-#             work_with_articles(my_wardrobe)
+#             table_report(my_wardrobe)
 #         elif action == '2':
-#             work_with_reports(my_wardrobe)
-#         elif action == '0':
-#             exit_system(my_wardrobe)
-#         else:
-#             print('Incorrect answer. Fill in "1", "2" or "0"')
-
-# def work_with_articles(my_wardrobe):
-#     while True:
-#         action = choose_action('articles')
-#         if action == '1':
-#             my_wardrobe.add_new_item()
-#         elif action == '2':
-#             my_wardrobe.change_item()
-#         elif action == '3':
-#             my_wardrobe.delete_item()
+#             table_report(my_wardrobe, True)
 #         elif action == '9':
 #             main_menu(my_wardrobe)
 #         elif action == '0':
@@ -75,27 +55,7 @@ def work_with_articles():
 #         else:
 #             print("Incorrect answer")
 
-
-def work_with_reports(my_wardrobe):
-    while True:
-        action = choose_action('reports')
-        if action == '1':
-            table_report(my_wardrobe)
-        elif action == '2':
-            table_report(my_wardrobe, True)
-        elif action == '9':
-            main_menu(my_wardrobe)
-        elif action == '0':
-            exit_system(my_wardrobe)
-        else:
-            print("Incorrect answer")
-
-
 def exit_system():
-    # answer = input("Save changes made in session? Yes - 1, No - any other key: ")
-    # if answer == "1":
-    #     #write_file("wardrobe.csv", my_wardrobe)
-    #     write_data(my_wardrobe)
     print("Good by!")
     raise SystemExit
 
@@ -121,13 +81,3 @@ def delete_data_question():
     else:
         return False
 
-# class Client():
-#
-#     backendAddress = "http://localhost:7000/articles"
-#
-#     @staticmethod
-#     def addArticle(article):
-#         result = requests.post(
-#                 Client.backendAddress,
-#                 json=article.dict())
-#         return result

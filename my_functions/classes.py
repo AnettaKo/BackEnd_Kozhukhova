@@ -1,5 +1,4 @@
 from my_functions.classificators import *
-# from my_functions.interface import delete_data_question
 from typing import Optional
 from pydantic import BaseModel, Field
 from my_functions.client import Client
@@ -18,31 +17,18 @@ class Item(BaseModel):
     description: Optional[str]
 
     def __str__(self):
-        # return self.__item_name
         return self.item_name
 
     def fullstr(self, delimiter="; "):
-        # return str(self.__item_name) + delimiter + str(self.item_class) + delimiter + str(self.item_type) + delimiter \
-        #     + str(self.size) + delimiter + str(self.season) + delimiter + str(self.color) + delimiter + \
-        #     str(self.brand) + delimiter + str(self.price) + delimiter + str(self.description)
         return str(self.id) + delimiter + str(self.item_name) + delimiter + str(self.item_class) + delimiter + str(
             self.item_type) + delimiter \
             + str(self.size) + delimiter + str(self.season) + delimiter + str(self.color) + delimiter + \
             str(self.brand) + delimiter + str(self.price) + delimiter + str(self.description)
 
     def name(self):
-        # return self.__item_name
         return self.item_name
 
     def item_dictionary(self):
-        # article_dict = {}
-        # for key in self.__dict__:
-        #     if key == "_Item__item_name":
-        #         article_dict['item_name'] = self.__dict__[key]
-        #     else:
-        #         article_dict[key] = self.__dict__[key]
-        # return article_dict
-
         article_dict = {}
         for key in self.__dict__:
             if key != "id":
@@ -69,8 +55,6 @@ class Item(BaseModel):
         price = cls.input_price("price")
         description = input('description = ').strip()
 
-        # new_item = Item(name, item_class, item_type, size, season, color, brand, price, description)
-        # new_item = Item(__item_name = name, item_class = item_class, item_type = item_type, size=size, season=season, color=color, brand = brand, price = price, description = description)
         new_item = Item(item_name=name, item_class=item_class, item_type=item_type, size=size, season=season,
                         color=color, brand=brand, price=price, description=description)
         return new_item
@@ -150,16 +134,11 @@ class Item(BaseModel):
 
     @classmethod
     def add_neu_item(cls):
-        # name = cls.input_name()
-        # article = Client.getArticleByName(name)
         (name, article) = cls.find_item(True)
         if article == None:
             new_article = cls.input_new_item(name)
             Client.addArticle(new_article)
-        # else:
-            # new_article = None
-            # print(f'Article with name "{name}" already exist.')
-        # return new_article
+
 
     @classmethod
     def change_item(cls):
@@ -168,7 +147,6 @@ class Item(BaseModel):
             article = Item(**article)
             cls.change_article(article)
             Client.updateArticle(article)
-        # return article
 
     @classmethod
     # find item by name
@@ -180,3 +158,13 @@ class Item(BaseModel):
         elif article != None and new_item:
             print(f'Article with name "{name}" already exist.')
         return (name, article)
+
+    @classmethod
+    def delete_item(cls):
+        (name, article) = cls.find_item()
+        if article is not None:
+            article = Item(**article)
+            print(article.fullstr())
+            answer = input("Do you really want to delete element? Yes - 1, No - any other key: ")
+            if answer == "1":
+                Client.deleteArticlebyId(article)

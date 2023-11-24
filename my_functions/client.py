@@ -22,3 +22,9 @@ class Client():
             Client.backendAddress + '/' + article.id,
             json=article.dict())
         return result
+
+    @staticmethod
+    def deleteArticlebyId(article):
+        result = requests.delete(
+                Client.backendAddress + '/' + article.id)
+        return result

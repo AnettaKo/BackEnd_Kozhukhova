@@ -30,6 +30,15 @@ def updateArticleById(id: str, article: Item):
     db.update_article_by_id(id, article)
     return {"message": "successful"}
 
+@app.delete("/articles/{id}")
+def deleteArticleById(id: str):
+    db.delete_article_by_id(id)
+    return {"message": "successful"}
+
+# @app.delete("/articles/{name}")
+# def deleteArticleByName(name: str):
+#     db.delete_article_by_name(name)
+#     return {"message": "successful"}
 
 class MyProjectBackend():
     @staticmethod
