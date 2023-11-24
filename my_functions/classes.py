@@ -75,7 +75,8 @@ class Item(BaseModel):
                         color=color, brand=brand, price=price, description=description)
         return new_item
 
-    def change_article(self, my_wardrobe):
+    # def change_article(self, my_wardrobe):
+    def change_article(self):
         print(f'article = {self.fullstr()}')
         # attributes = list(self.__dict__.keys())
         attributes = list(self.item_dictionary().keys())
@@ -84,8 +85,9 @@ class Item(BaseModel):
         print(f'old {attribute} = {self.item_dictionary()[attribute]}')
         # if attribute == "name":
         if attribute == "item_name":
-            name = Item.input_name()
-            article = my_wardrobe.find_item(name, True)
+            # name = Item.input_name()
+            # article = my_wardrobe.find_item(name, True)
+            (name, article) = self.find_item(True)
             if article is None:
                 # self.__item_name = name
                 self.item_name = name
@@ -114,7 +116,8 @@ class Item(BaseModel):
 
         action = input("Change other attribute? Yes - 1, No - any other key: ")
         if action == '1':
-            self.change_article(my_wardrobe)
+            # self.change_article(my_wardrobe)
+            self.change_article()
 
     @classmethod
     def input_size(cls, item_class, attribute_name: str):
@@ -147,17 +150,33 @@ class Item(BaseModel):
 
     @classmethod
     def add_neu_item(cls):
-        name = cls.input_name()
-        article = Client.getArticleByName(name)
+        # name = cls.input_name()
+        # article = Client.getArticleByName(name)
+        (name, article) = cls.find_item(True)
         if article == None:
             new_article = cls.input_new_item(name)
-        else:
-            new_article = None
-            print(f'Article with name "{name}" already exist.')
-        return new_article
-        # new_article = cls.find_item(name, True)
-        # if new_article is None:
-        #     new_article = cls.input_new_item(name)
-            # my_functions.data_storage.add_new_article(new_article)
+            Client.addArticle(new_article)
         # else:
-        #     print(f'Article with name "{name}" already exist.')
+            # new_article = None
+            # print(f'Article with name "{name}" already exist.')
+        # return new_article
+
+    @classmethod
+    def change_item(cls):
+        (name, article) = cls.find_item()
+        if article != None:
+            article = Item(**article)
+            cls.change_article(article)
+            Client.updateArticle(article)
+        # return article
+
+    @classmethod
+    # find item by name
+    def find_item(cls, new_item=False):
+        name = cls.input_name()
+        article = Client.getArticleByName(name) #return dict
+        if article == None and not new_item:
+            print(f'Article with name "{name}" not found')
+        elif article != None and new_item:
+            print(f'Article with name "{name}" already exist.')
+        return (name, article)

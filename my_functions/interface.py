@@ -29,12 +29,14 @@ def main_menu():
 def work_with_articles():
     while True:
         action = choose_action('articles')
-        if action == '1':
-            new_article = Item.add_neu_item()
-            if new_article != None:
-                Client.addArticle(new_article)
+        if action == '1': #Add new article
+            # new_article = Item.add_neu_item()
+            Item.add_neu_item()
+            # if new_article != None:
+            #     Client.addArticle(new_article)
             # my_wardrobe.add_new_item()
-        # elif action == '2':
+        elif action == '2': #Change article
+            Item.change_item()
         #     my_wardrobe.change_item()
         # elif action == '3':
         #     my_wardrobe.delete_item()

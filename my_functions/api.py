@@ -25,6 +25,12 @@ def addArticle(article: Item):
     db.insert_article(article)
     return {"message": "successful"}
 
+@app.put("/articles/{id}")
+def updateArticleById(id: str, article: Item):
+    db.update_article_by_id(id, article)
+    return {"message": "successful"}
+
+
 class MyProjectBackend():
     @staticmethod
     def startBackend():

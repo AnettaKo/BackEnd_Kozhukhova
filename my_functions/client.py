@@ -15,3 +15,10 @@ class Client():
     def getArticleByName(name):
         result = requests.get(Client.backendAddress + "/" + name)
         return result.json()
+
+    @staticmethod
+    def updateArticle(article):
+        result = requests.put(
+            Client.backendAddress + '/' + article.id,
+            json=article.dict())
+        return result
