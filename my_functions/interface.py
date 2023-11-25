@@ -1,4 +1,5 @@
 from my_functions.classes import Item
+from my_functions.reports import table_report
 
 def choose_action(menu):
     print("Choose action!")
@@ -17,8 +18,7 @@ def main_menu():
         if action == '1':
             work_with_articles()
         elif action == '2':
-            print("to be done :)")
-            # work_with_reports()
+            work_with_reports()
         elif action == '0':
             exit_system()
         else:
@@ -40,19 +40,20 @@ def work_with_articles():
         else:
             print("Incorrect answer")
 
-# def work_with_reports(my_wardrobe):
-#     while True:
-#         action = choose_action('reports')
-#         if action == '1':
-#             table_report(my_wardrobe)
-#         elif action == '2':
-#             table_report(my_wardrobe, True)
-#         elif action == '9':
-#             main_menu(my_wardrobe)
-#         elif action == '0':
-#             exit_system(my_wardrobe)
-#         else:
-#             print("Incorrect answer")
+def work_with_reports():
+    while True:
+        action = choose_action('reports')
+        if action == '1':
+            table_report()
+        elif action == '2':
+            print("under development :)")
+            # table_report(True)
+        elif action == '9':
+            main_menu()
+        elif action == '0':
+            exit_system()
+        else:
+            print("Incorrect answer")
 
 def exit_system():
     print("Good by!")

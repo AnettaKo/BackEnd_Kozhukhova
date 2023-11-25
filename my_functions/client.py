@@ -17,6 +17,11 @@ class Client():
         return result.json()
 
     @staticmethod
+    def getAllArticles():
+        result = requests.get(Client.backendAddress)
+        return result.json()
+
+    @staticmethod
     def updateArticle(article):
         result = requests.put(
             Client.backendAddress + '/' + article.id,
