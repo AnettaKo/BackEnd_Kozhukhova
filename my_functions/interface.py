@@ -1,4 +1,3 @@
-# from my_functions.reports import *
 from my_functions.classes import Item
 
 def choose_action(menu):

@@ -59,21 +59,15 @@ class Item(BaseModel):
                         color=color, brand=brand, price=price, description=description)
         return new_item
 
-    # def change_article(self, my_wardrobe):
     def change_article(self):
         print(f'article = {self.fullstr()}')
-        # attributes = list(self.__dict__.keys())
         attributes = list(self.item_dictionary().keys())
         attribute = input_from_classificator(attributes, 'attribute')
-        # print(f'old {attribute} = {self.__getattribute__(attribute)}')
         print(f'old {attribute} = {self.item_dictionary()[attribute]}')
         # if attribute == "name":
         if attribute == "item_name":
-            # name = Item.input_name()
-            # article = my_wardrobe.find_item(name, True)
             (name, article) = self.find_item(True)
             if article is None:
-                # self.__item_name = name
                 self.item_name = name
         elif attribute == "item_class":
             item_class = input_from_classificator(item_classes, 'new item_class')
@@ -100,7 +94,6 @@ class Item(BaseModel):
 
         action = input("Change other attribute? Yes - 1, No - any other key: ")
         if action == '1':
-            # self.change_article(my_wardrobe)
             self.change_article()
 
     @classmethod
@@ -109,8 +102,6 @@ class Item(BaseModel):
             return input_from_classificator(sizes.get(item_class), attribute_name)
         else:
             size = input(f'{attribute_name} = ').strip()
-            # if size == "":
-            #     size = None
             return size
 
     @classmethod
@@ -149,8 +140,7 @@ class Item(BaseModel):
             Client.updateArticle(article)
 
     @classmethod
-    # find item by name
-    def find_item(cls, new_item=False):
+    def find_item(cls, new_item=False): # find item by name
         name = cls.input_name()
         article = Client.getArticleByName(name) #return dict
         if article == None and not new_item:

@@ -1,15 +1,8 @@
 from pymongo import MongoClient
 from bson import ObjectId
-from pydantic import BaseModel
 from my_functions.classes import Item
 
 client = MongoClient("mongodb+srv://ankozhukhova:mongo4anna.@cluster0.yt7xy1p.mongodb.net/?retryWrites=true&w=majority")
-
-try:
-    client.admin.command('ping')
-    print("Successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
 
 class Wardrobe_database:
 
