@@ -133,9 +133,8 @@ class Item(BaseModel):
 
     @classmethod
     def change_item(cls):
-        (name, article) = cls.find_item()
+        article = cls.choose_item()
         if article != None:
-            article = Item(**article)
             cls.change_article(article)
             Client.updateArticle(article)
 
@@ -143,6 +142,8 @@ class Item(BaseModel):
     def find_item(cls, new_item=False): # find item by name
         name = cls.input_name()
         article = Client.getArticleByName(name) #return dict
+        if article != None:
+            article = Item(**article)
         if article == None and not new_item:
             print(f'Article with name "{name}" not found')
         elif article != None and new_item:
@@ -151,10 +152,35 @@ class Item(BaseModel):
 
     @classmethod
     def delete_item(cls):
-        (name, article) = cls.find_item()
+        article = cls.choose_item()
         if article is not None:
-            article = Item(**article)
             print(article.fullstr())
             answer = input("Do you really want to delete element? Yes - 1, No - any other key: ")
             if answer == "1":
                 Client.deleteArticlebyId(article)
+
+    @classmethod
+    def choose_item(cls):
+        print("Choose action!")
+        action = input('1 - Find article by name, 2 - Choose article from list: ')
+        if action == "1":
+            return cls.find_item()[1] #article
+        elif action == '2':
+            list_articles = cls.get_all_articles()
+            if len(list_articles) == 0:
+                print('no items in wardrobe')
+                return None
+            else:
+                return input_from_classificator(list_articles, "article")
+        else:
+            print("Incorrect input")
+            return None
+
+    @classmethod
+    def get_all_articles(cls):
+        json_dict = Client.getAllArticles()
+        list_items = []
+        for item in json_dict:
+            item = Item(**item)
+            list_items.append(item)
+        return list_items

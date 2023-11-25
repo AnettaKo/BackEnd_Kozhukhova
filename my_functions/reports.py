@@ -7,12 +7,7 @@ def table_report(select=False):
 
     # list_items = my_wardrobe.list_items()
 
-    json_dict = Client.getAllArticles()
-    list_items = []
-    for item in json_dict:
-        item = Item(**item)
-        list_items.append(item)
-
+    list_items = Item.get_all_articles()
 
     if len(list_items) == 0:
         print('no items in wardrobe')
