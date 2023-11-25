@@ -46,8 +46,7 @@ def work_with_reports():
         if action == '1':
             table_report()
         elif action == '2':
-            print("under development :)")
-            # table_report(True)
+            table_report(True)
         elif action == '9':
             main_menu()
         elif action == '0':
@@ -59,25 +58,25 @@ def exit_system():
     print("Good by!")
     raise SystemExit
 
-
-def save_data_question(ask_question=False, delete_data=False):
-    if ask_question:
-        if delete_data:
-            answer = input("Do you really want to delete element? Yes - 1, No - any other key: ")
-        else:  # change article
-            answer = input("Save changes? Yes - 1, No - any other key: ")
-        if answer == "1":
-            return True
-        else:
-            return False
-    else:  # add new article
-        return True
-
-
-def delete_data_question():
-    answer = input("Do you really want to delete element? Yes - 1, No - any other key: ")
-    if answer == "1":
-        return True
-    else:
-        return False
-
+#
+# def save_data_question(ask_question=False, delete_data=False):
+#     if ask_question:
+#         if delete_data:
+#             answer = input("Do you really want to delete element? Yes - 1, No - any other key: ")
+#         else:  # change article
+#             answer = input("Save changes? Yes - 1, No - any other key: ")
+#         if answer == "1":
+#             return True
+#         else:
+#             return False
+#     else:  # add new article
+#         return True
+#
+#
+# def delete_data_question():
+#     answer = input("Do you really want to delete element? Yes - 1, No - any other key: ")
+#     if answer == "1":
+#         return True
+#     else:
+#         return False
+#

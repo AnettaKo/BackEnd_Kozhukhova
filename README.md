@@ -3,10 +3,11 @@ My wardrobe
 
 "My Wardrobe" is an application to record closes.
 
-A user can work with wardrobe articles: add new one, change, delete articles.
+A user can work with wardrobe articles: add new one, change, delete articles and making reports.
 The program use classificators and notes for quick input. The program contains
 a user interface through the console. Data is stored in MongoDB database 
-on https://cloud.mongodb.com. The database is accessed via API using FastAPI library.
+on https://cloud.mongodb.com. The database is accessed via API using FastAPI library. 
+Reports are displayed in a brauser using the plotly library.
 
 
 Requirements:
