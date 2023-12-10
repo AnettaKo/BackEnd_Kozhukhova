@@ -1,7 +1,8 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from my_functions.database import Wardrobe_database
 from my_functions.classes import Item
+from typing import Annotated
 
 app = FastAPI()
 db = Wardrobe_database()
@@ -13,6 +14,33 @@ async def root():
 @app.get("/articles")
 def getArticles():
     articles = db.get_all_articles()
+    return articles
+
+@app.get("/articles/report")
+# def getFilteredArticles(item_class: Annotated[list[str] | None, Query()] = None):
+def getFilteredArticles(item_class: Annotated[list[str] | None, Query()] = None,
+                        item_type: Annotated[list[str] | None, Query()] = None,
+                        size: Annotated[list[str] | None, Query()] = None,
+                        season: Annotated[list[str] | None, Query()] = None,
+                        color: Annotated[list[str] | None, Query()] = None,
+                        brand: Annotated[list[str] | None, Query()] = None):
+    # articles = db.get_filtered_article(item_class,season)
+    param = {}
+    if item_class != None:
+        param["item_class"] = item_class
+    if item_type != None:
+        param["item_type"] = item_type
+    if size != None:
+        param["size"] = size
+    if season != None:
+        param["season"] = season
+    if color != None:
+        param["color"] = color
+    if brand != None:
+        param["brand"] = brand
+
+    # articles = db.get_filtered_article(item_class, season)
+    articles = db.get_filtered_article(param)
     return articles
 
 @app.get("/articles/{article_name}")

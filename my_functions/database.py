@@ -28,6 +28,28 @@ class Wardrobe_database:
             list_articles.append(Item(**article))
         return list_articles
 
+    def get_filtered_article(self, param: dict):
+    # def get_filtered_article(self, item_class: list|None, season: list|None):
+        # articles = self.collection.find({"item_class": {"$in": item_class},
+        #                                  "season": {"$in": season}})
+        # param = {}
+        # if item_class != None:
+        #     param["item_class"] = {"$in": item_class}
+        # if season != None:
+        #     param["season"] = {"$in": season}
+        # articles = self.collection.find(param)
+        for key, value in param.items():
+            if value == None:
+                param.pop(key)
+            else:
+                param[key] = {"$in": value}
+        articles = self.collection.find(param)
+        list_articles = []
+        for article in articles:
+            article["_id"] = str(article["_id"])
+            list_articles.append(Item(**article))
+        return list_articles
+
     def update_article_by_id(self, id: str, article: Item):
         return self.collection.replace_one({"_id":  ObjectId(id)}, article.item_dictionary())
 

@@ -65,11 +65,24 @@ def table_report(select=False):
             print('no items in result table')
             return
 
+        #tha same result with API
+        json_dict = Client.getFilteredArticles(selections)
+        list_items = []
+        for item in json_dict:
+            item = Item(**item)
+            list_items.append(item)
+
+        print([str(element) for element in list_items])
+
     else:
         list_items_selected = list_items
 
+    # return
+
     cells = [list(item.item_dictionary().values()) for item in list_items_selected]
     cells.insert(0, list(list_items[0].item_dictionary().keys()))  # header
+
+    print("If report doesn't load in a browser, restart the API and the Client and try again.")
 
     fig = ff.create_table(cells, index=True)
     fig.show()
